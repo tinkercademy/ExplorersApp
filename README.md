@@ -1,3 +1,15 @@
 # ExplorersApp
+## Ensures that all apps are built with the iPad 9th Gen in mind
 
-A description of this package.
+```swift
+@main
+struct MyApp: App {
+    var body: some Scene {
+        WindowGroup {
+            ExplorersApp {
+                ContentView()
+            }
+        }
+    }
+}
+```
