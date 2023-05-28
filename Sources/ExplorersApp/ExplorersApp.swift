@@ -6,11 +6,14 @@ import SwiftUI
 @available(watchOS, unavailable)
 public struct ExplorersApp<T: View>: View {
     
-    @ViewBuilder
-    var contents: (() -> T)
+    public var contents: T
     
     private let width = 1080.0
     private let height = 810.0
+    
+    public init(@ViewBuilder content: () -> T){
+        self.contents = content()
+    }
     
     public var body: some View {
         GeometryReader { reader in
@@ -19,7 +22,7 @@ public struct ExplorersApp<T: View>: View {
             
             let scale = min(reader.size.width / width, reader.size.height / height)
             
-            contents()
+            contents
                 .frame(width: width, height: height)
                 .background(Color.white.shadow(color: .black.opacity(0.3), radius: 8))
                 .scaleEffect(scale)
