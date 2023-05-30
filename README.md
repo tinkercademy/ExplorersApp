@@ -8,7 +8,8 @@ import ExplorersApp
 struct MyApp: App {
     var body: some Scene {
         WindowGroup {
-            ExplorersApp {
+            // Replace the parameter on the next line with `.landscape` for a landscape orientation
+            ExplorersApp(.portrait) {
                 ContentView()
             }
         }
