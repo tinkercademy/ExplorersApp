@@ -13,7 +13,7 @@ public struct ExplorersApp<T: View>: View {
     private let width = 1080.0
     private let height = 810.0
     
-    public init(_ orientation: Orientation, @ViewBuilder content: () -> T){
+    public init(_ orientation: Orientation = .landscape, @ViewBuilder content: () -> T){
         self.contents = content()
         self.orientation = orientation
     }
