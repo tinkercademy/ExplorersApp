@@ -8,11 +8,14 @@ public struct ExplorersApp<T: View>: View {
     
     public var contents: T
     
+    public var orientation: Orientation = .landscape
+    
     private let width = 1080.0
     private let height = 810.0
     
-    public init(@ViewBuilder content: () -> T){
+    public init(_ orientation: Orientation, @ViewBuilder content: () -> T){
         self.contents = content()
+        self.orientation = orientation
     }
     
     public var body: some View {
@@ -20,20 +23,25 @@ public struct ExplorersApp<T: View>: View {
             Rectangle()
                 .fill(.black)
             
-            let scale = min(reader.size.width / width, reader.size.height / height)
+            let finalWidth = orientation == .landscape ? width : height
+            let finalHeight = orientation == .landscape ? height : width
+            
+            let scale = min(reader.size.width / finalWidth, reader.size.height / finalHeight)
             
             contents
-                .frame(width: width, height: height)
+                .frame(width: finalWidth, height: finalHeight)
                 .background(Color.white.shadow(color: .black.opacity(0.3), radius: 8))
                 .scaleEffect(scale)
                 .frame(width: reader.size.width, height: reader.size.height)
-                .onAppear {
-                    print(reader.size.width, reader.size.height)
-                }
                 .preferredColorScheme(.light)
         }
         .edgesIgnoringSafeArea(.all)
         .persistentSystemOverlays(.hidden)
         .statusBarHidden()
     }
+}
+
+public enum Orientation {
+    case portrait
+    case landscape
 }
